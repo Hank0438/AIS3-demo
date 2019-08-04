@@ -165,23 +165,7 @@ class BEA1():
 def bitfield(n):
     return [int(digit) for digit in (bin(n)[2:]).rjust(8, '0')]
 
-def Crack():
-    num = 20
-    randomPair_arr = randomPair(num)
-    
-    stat = [0]*8
-    for n in range(num):
-        for i in range(1024):
-            for j in range(8):
-                r3 = randomPair_arr[n][1][2] ^ i
-                for sj in range(64):
-                    for sk in range(16):
-                        if r3 == SBox2[sj][sk]:
-                            r3 = sj*16 + sk
-                r3 = bitfield(r3)
 
-                stat[j] += r3[j]
-    print('stat:', stat)
 
 def randomPair(num):
     pair_arr = []
@@ -210,34 +194,3 @@ if __name__ == "__main__":
     print('p:', p)
     
     #Crack()
-
-
-
-
-    '''
-    state = [pi for pi in p]
-    state = cipher.InvSubBytes(state)
-    print('state:', state)
-    #print(cipher.SBox0[0][0], cipher.SBox1[0][1], cipher.SBox2[0][2], cipher.SBox3[0][3], cipher.SBox0[0][4], cipher.SBox1[0][5], cipher.SBox2[0][6], cipher.SBox3[0][7])
-    state = cipher.SubBytes(state)
-    print('state:', state)
-    '''
-    
-
-    '''
-    ### check SBOX
-    find = [-1]*(64*16)
-    for k in range(64*16):
-        for i in range(64):
-            for j in range(16):
-                if cipher.SBox1[i][j] == k:
-                    if find[k] == -1:
-                        find[k] = i*16+j
-                    else:
-                        find[k] = -1000
-            
-    for k in range(64*16):
-        if find[k] == -1000:
-            print(k)
-    
-    '''
